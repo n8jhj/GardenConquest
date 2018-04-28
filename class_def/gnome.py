@@ -12,12 +12,14 @@ class Gnome:
         'right': img_rt
     }
     img_size = (29, 45)
+    height_adjust = 0.3
 
     def __init__(self, surf, orient='down'):
         self.surf = surf
         self.orientation = orient
         self.draw_pos = (self.surf.get_width() / 2 - self.img_size[0] / 2,
-            self.surf.get_height() / 2 - self.img_size[1] / 2)
+            self.surf.get_height() / 2 - self.img_size[1] / 2 \
+            - self.img_size[1] * self.height_adjust)
 
     def draw(self):
         self.surf.blit(self.ortn_img[self.orientation], self.draw_pos)

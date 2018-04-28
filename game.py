@@ -2,6 +2,7 @@ from pygame.constants import (K_UP, K_DOWN, K_LEFT, K_RIGHT, K_q)
 from pygame import display
 from colors import BLACK
 from class_def.gnome import Gnome
+from class_def.map import Map
 
 class Game:
     def __init__(self, surf):
@@ -15,6 +16,7 @@ class Game:
             K_q:        self.quit_game
         }
         self.pressed = {}
+        self.map = Map(self.surf)
         self.gnome = self.new_gnome()
 
     def update(self):
@@ -27,6 +29,7 @@ class Game:
     def draw(self):
         '''Draw the game window'''
         self.surf.fill(BLACK)
+        self.map.draw()
         self.gnome.draw()
         display.update()
 
