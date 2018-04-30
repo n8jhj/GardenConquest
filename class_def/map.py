@@ -15,6 +15,35 @@ class Map:
             'down': (0, -self.tile_h)}
         self.target_pos = None
 
+    def setup(self):
+        # look into self.layoutFile and load the proper Tiles
+        levelMap = []
+        levelKey = {}
+        parser = ConfigParser.ConfigParser()
+        parser.read(self.layoutFile)
+        levelMap = parser.get('level', 'map').split('\n')
+        for section in parser.sections():
+            if len(section) == 1:
+                desc = dict(parser.items(section))
+                levelKey[section] = desc
+        self.width = len(levelMap[0]) # 10
+        self.height = len(levelMap) # 6
+        self.tiles = [None]*self.width*self.height
+        for i in range(self.height):
+            for j in range(self.width):
+                sym = levelMap[i][j]
+                name = levelKey[sym]['name']
+                img = levelKey[sym]['img']
+                imgVis = levelKey[sym]['img_vis']
+                mvbl = levelKey[sym]['moveable']
+                mvbl = mvbl == 'True' or mvbl == 'true' or mvbl == '1' \
+                       or mvbl == 'Yes' or mvbl == 'yes'
+                sebl = levelKey[sym]['seeable']
+                sebl = sebl == 'True' or sebl == 'true' or sebl == '1' \
+                       or sebl == 'Yes' or sebl == 'yes'
+                self.tiles[i*self.width+j] = Tile(self, (j,self.height-i-1), \
+                                                  name, img, imgVis, mvbl, sebl)
+
     def update(self):
         '''Update tile positions'''
         if self.gnome_is_moving():
