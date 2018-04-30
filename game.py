@@ -16,14 +16,17 @@ class Game:
             K_q:        self.quit_game
         }
         self.pressed = {}
-        self.map = Map(self.surf)
+        self.map = self.new_map()
         self.gnome = self.new_gnome()
+        self.can_interact = True
 
     def update(self):
         '''Update game state'''
-        for key in self.pressed:
-            if self.pressed[key]:
-                self.key_function[key]()
+        self.map.update()
+        if self.can_interact:
+            for key in self.pressed:
+                if self.pressed[key]:
+                    self.key_function[key]()
         return self.is_going
 
     def draw(self):
@@ -37,23 +40,31 @@ class Game:
         '''Perform action related to pressed key'''
         self.pressed[key] = press
 
+    def new_map(self):
+        '''Return a new map'''
+        return Map(self)
+
     def new_gnome(self):
         '''Return a new gnome'''
-        return Gnome(self.surf)
+        return Gnome(self)
 
     # _____________KEY_PRESS_FUNCTIONS_____________
 
     def move_up(self):
-        self.gnome.orient('up')
+        self.gnome.move('up')
+        self.can_interact = False
 
     def move_down(self):
-        self.gnome.orient('down')
+        self.gnome.move('down')
+        self.can_interact = False
 
     def move_left(self):
-        self.gnome.orient('left')
+        self.gnome.move('left')
+        self.can_interact = False
 
     def move_right(self):
-        self.gnome.orient('right')
+        self.gnome.move('right')
+        self.can_interact = False
 
     def quit_game(self):
         self.is_going = False
