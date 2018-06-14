@@ -1,0 +1,14 @@
+[map]
+layout = ######
+         #....#
+         #.#..#
+         #.#..#
+         #....#
+         ######
+
+[.]
+name = floor
+
+[#]
+name = wall
+block = true
