@@ -16,8 +16,9 @@ class Game:
             K_q:        self.quit_game
         }
         self.pressed = {}
-        self.map = self.new_map()
-        self.gnome = self.new_gnome()
+        self.map = Map(self)
+        self.locale = Locale(self.map)
+        self.gnome = Gnome(self)
         self.can_interact = True
 
     def update(self):
@@ -32,21 +33,13 @@ class Game:
     def draw(self):
         '''Draw the game window'''
         self.surf.fill(BLACK)
-        self.map.draw()
+        self.locale.draw()
         self.gnome.draw()
         display.update()
 
     def key_action(self, key, press):
         '''Perform action related to pressed key'''
         self.pressed[key] = press
-
-    def new_map(self):
-        '''Return a new map'''
-        return Map(self)
-
-    def new_gnome(self):
-        '''Return a new gnome'''
-        return Gnome(self)
 
     # _____________KEY_PRESS_FUNCTIONS_____________
 
