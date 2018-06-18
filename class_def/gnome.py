@@ -1,18 +1,19 @@
-from pygame import image
+from config.images import (RED_GNOME_UP, RED_GNOME_DN, RED_GNOME_LT,
+    RED_GNOME_RT, GNOME_IMG_SIZE, GNOME_IMG_HEIGHT_ADJUST)
 
 class Gnome:
-    img_up = image.load('images/gnome-ready/red_gnome_up.png')
-    img_dn = image.load('images/gnome-ready/red_gnome_dn.png')
-    img_lt = image.load('images/gnome-ready/red_gnome_lt.png')
-    img_rt = image.load('images/gnome-ready/red_gnome_rt.png')
+    img_up = RED_GNOME_UP
+    img_dn = RED_GNOME_DN
+    img_lt = RED_GNOME_LT
+    img_rt = RED_GNOME_RT
     ortn_img = {
         'up': img_up,
         'down': img_dn,
         'left': img_lt,
         'right': img_rt
     }
-    img_size = (29, 45)
-    height_adjust = 0.3
+    img_size = GNOME_IMG_SIZE
+    height_adjust = GNOME_IMG_HEIGHT_ADJUST
 
     def __init__(self, game, orient='down', velocity=0.4):
         self.game = game
@@ -33,7 +34,7 @@ class Gnome:
     def move(self, dir):
         self.orient(dir)
         self.move_dir = dir
-        self.set_map_target_position(dir)
+        self.set_locale_target_position(dir)
 
-    def set_map_target_position(self, dir):
-        self.game.map.set_target_pos(dir)
+    def set_locale_target_position(self, dir):
+        self.game.locale.set_target_pos(dir)

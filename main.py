@@ -6,11 +6,12 @@ A game where players compete to make their gardens grow.
 
 import pygame, sys
 from pygame.locals import *
+
 import game
+from config.screen import SCREEN_SIZE
 
 # set up pygame
-SIZE = (750, 400)
-DISPSURF = pygame.display.set_mode(SIZE)
+DISPSURF = pygame.display.set_mode(SCREEN_SIZE)
 pygame.display.set_caption('Garden Conquest')
 pygame.init()
 

@@ -3,6 +3,7 @@ from pygame import display
 from colors import BLACK
 from class_def.gnome import Gnome
 from class_def.map import Map
+from class_def.locale import Locale
 
 class Game:
     def __init__(self, surf):
@@ -17,13 +18,14 @@ class Game:
         }
         self.pressed = {}
         self.map = Map(self)
-        self.locale = Locale(self.map)
+        locale_center = (1, 1)
+        self.locale = Locale(self.map, locale_center)
         self.gnome = Gnome(self)
         self.can_interact = True
 
     def update(self):
         '''Update game state'''
-        self.map.update()
+        self.locale.update()
         if self.can_interact:
             for key in self.pressed:
                 if self.pressed[key]:
