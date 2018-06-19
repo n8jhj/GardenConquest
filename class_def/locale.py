@@ -27,28 +27,28 @@ class Locale:
     def update(self):
         '''Update tile positions'''
         if self.gnome_is_moving():
-            dir = self.gnome_move_dir()
+            mvmt_dir = self.gnome_move_dir()
             gnome_vel = self.gnome_velocity()
-            self.pos = (self.pos[0] + self.adjuster[dir][0] * gnome_vel,
-                self.pos[1] + self.adjuster[dir][1] * gnome_vel)
+            self.pos = (self.pos[0] + self.adjuster[mvmt_dir][0] * gnome_vel,
+                self.pos[1] + self.adjuster[mvmt_dir][1] * gnome_vel)
             if self.target_pos_reached():
                 self.pos = self.target_pos
                 self.stop_gnome_movement()
                 self.set_game_interaction(True)
 
-    def set_target_pos(self, dir):
-        self.target_pos = (self.pos[0] + self.adjuster[dir][0],
-            self.pos[1] + self.adjuster[dir][1])
+    def set_target_pos(self, mvmt_dir):
+        self.target_pos = (self.pos[0] + self.adjuster[mvmt_dir][0],
+            self.pos[1] + self.adjuster[mvmt_dir][1])
 
     def target_pos_reached(self):
-        dir = self.gnome_move_dir()
-        if dir == 'left':
+        mvmt_dir = self.gnome_move_dir()
+        if mvmt_dir == 'left':
             return self.pos[0] >= self.target_pos[0]
-        elif dir == 'right':
+        elif mvmt_dir == 'right':
             return self.pos[0] <= self.target_pos[0]
-        elif dir == 'up':
+        elif mvmt_dir == 'up':
             return self.pos[1] >= self.target_pos[1]
-        elif dir == 'down':
+        elif mvmt_dir == 'down':
             return self.pos[1] <= self.target_pos[1]
 
     def set_game_interaction(self, bool_val):
