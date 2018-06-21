@@ -4,11 +4,10 @@ GARDEN CONQUEST
 A game where players compete to make their gardens grow.
 """
 
-import pygame, sys
+import pygame
 
 from config.screen import SCREEN_SIZE
-import game
-import artist
+from class_def.game import Game
 
 # Set up pygame.
 DISPSURF = pygame.display.set_mode(SCREEN_SIZE)
@@ -19,9 +18,8 @@ pygame.init()
 FPS = 30
 fpsClock = pygame.time.Clock()
 
-# Set up Game and Artist.
-gc_game = game.Game()
-gc_artist = artist.Artist(DISPSURF, gc_game)
+# Set up Game, EventHandler, Artist.
+gc_game = Game(DISPSURF)
 
 def main():
     going = True
@@ -32,10 +30,10 @@ def main():
         fpsClock.tick(FPS) # clock
 
 def controllerTick():
-    return True
+    return gc_game.update()
 
 def viewTick():
-    pass
+    gc_game.draw()
 
 if __name__ == '__main__':
     try:
