@@ -5,22 +5,23 @@ A game where players compete to make their gardens grow.
 """
 
 import pygame, sys
-from pygame.locals import *
 
-import game
 from config.screen import SCREEN_SIZE
+import game
+import artist
 
-# set up pygame
+# Set up pygame.
 DISPSURF = pygame.display.set_mode(SCREEN_SIZE)
 pygame.display.set_caption('Garden Conquest')
 pygame.init()
 
-# set up Clock
+# Set up Clock.
 FPS = 30
 fpsClock = pygame.time.Clock()
 
-# set up game
-main_game = game.Game(DISPSURF)
+# Set up Game and Artist.
+gc_game = game.Game()
+gc_artist = artist.Artist(DISPSURF, gc_game)
 
 def main():
     going = True
@@ -31,17 +32,10 @@ def main():
         fpsClock.tick(FPS) # clock
 
 def controllerTick():
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            return False
-        if event.type == KEYDOWN:
-            main_game.key_action(event.key, True)
-        if event.type == KEYUP:
-            main_game.key_action(event.key, False)
-    return main_game.update()
+    return True
 
 def viewTick():
-    main_game.draw()
+    pass
 
 if __name__ == '__main__':
     try:
